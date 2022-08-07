@@ -6,6 +6,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.hxl.arithcalc.presentation.fragment.calculator.CalculatorFragment
 import com.hxl.arithcalc.R
 
 class MainActivity : AppCompatActivity() {
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen().apply { setKeepOnScreenCondition { false } }
         setContentView(R.layout.activity_main)
+        replaceFragment(CalculatorFragment())
     }
 
     fun replaceFragment(fragment: Fragment, backStack: Boolean = false) {

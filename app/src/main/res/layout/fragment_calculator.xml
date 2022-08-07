@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.hxl.arithcalc.presentation.fragment.calculator.CalculatorFragment">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/top_app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:menu="@menu/menu_calculator"
+                    app:navigationIcon="@drawable/ic_baseline_history_24"
+                    app:navigationIconTint="?attr/colorOnSurface" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_keyboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:weightSum="2"
+            app:layout_constraintBottom_toTopOf="@+id/gl_keyboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <EditText
+                android:id="@+id/input_field"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3"
+                android:background="@android:color/transparent"
+                android:elegantTextHeight="false"
+                android:gravity="center"
+                android:importantForAutofill="no"
+                android:inputType="none"
+                android:lineSpacingExtra="8sp"
+                android:text="@string/btn_zero"
+                android:textAlignment="viewEnd"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="30sp"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="LabelFor,RtlCompat,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/result_field"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="40dp"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                android:textAlignment="viewEnd"
+                android:textColor="?attr/colorSecondary"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-65dp"
+            app:layout_constraintBottom_toTopOf="@+id/gl_keyboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/bottom_sheet"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="@drawable/sheet"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/view"
+                    android:layout_width="40dp"
+                    android:layout_height="5dp"
+                    android:layout_gravity="center|top"
+                    android:layout_margin="15dp"
+                    android:background="?attr/colorOnPrimary"
+                    app:cardCornerRadius="5dp" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|start">
+
+                        <Button
+                            android:id="@+id/button_pi"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/btn_pi"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="20sp"
+                            app:iconGravity="end"
+                            app:rippleColor="?attr/colorPrimaryInverse" />
+
+                        <Button
+                            android:id="@+id/button_br_open"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/btn_bracket_open"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="20sp"
+                            app:iconGravity="end"
+                            app:rippleColor="?attr/colorPrimaryInverse" />
+
+                        <Button
+                            android:id="@+id/button_br_close"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/btn_bracket_close"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="20sp"
+                            app:iconGravity="end"
+                            app:rippleColor="?attr/colorPrimaryInverse" />
+
+                        <Button
+                            android:id="@+id/button_root"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/btn_root"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="20sp"
+                            app:iconGravity="end"
+                            app:rippleColor="?attr/colorPrimaryInverse" />
+
+                        <Button
+                            android:id="@+id/button_sin"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/btn_sin"
+                            android:textAlignment="textEnd"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="20sp"
+                            app:iconGravity="end"
+                            app:rippleColor="?attr/colorPrimaryInverse" />
+
+                        <Button
+                            android:id="@+id/button_cos"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/btn_cos"
+                            android:textAlignment="viewEnd"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="20sp"
+                            app:iconGravity="end"
+                            app:rippleColor="?attr/colorPrimaryInverse" />
+
+                        <Button
+                            android:id="@+id/button_tan"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/btn_tan"
+                            android:textAlignment="textEnd"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="20sp"
+                            app:iconGravity="end"
+                            app:rippleColor="?attr/colorPrimaryInverse" />
+
+                        <Button
+                            android:id="@+id/button_cot"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/btn_cot"
+                            android:textAlignment="textEnd"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="20sp"
+                            app:iconGravity="end"
+                            app:rippleColor="?attr/colorPrimaryInverse" />
+
+                        <Button
+                            android:id="@+id/button_log"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/btn_log"
+                            android:textAlignment="textEnd"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="20sp"
+                            app:iconGravity="end"
+                            app:rippleColor="?attr/colorPrimaryInverse" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+            </FrameLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="?attr/colorSurface"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_keyboard">
+
+            <com.hxl.arithcalc.presentation.fragment.calculator.keyboard.KeyboardCalculator
+                android:id="@+id/soft_keyboard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
