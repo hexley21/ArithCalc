@@ -9,6 +9,6 @@ interface EquationHistoryRepository {
 
     suspend fun readEquationHistory(): List<Equation>
 
-    suspend fun insertEquationHistory(gameHistory: Equation)
+    suspend fun insertEquationHistory(equation: Equation)
 
 }
