@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -28,6 +29,10 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen().apply { setKeepOnScreenCondition { false } }
         setContentView(R.layout.activity_main)
         replaceFragment(CalculatorFragment())
+    }
+
+    fun showDialog(dialog: AppCompatDialogFragment, tag: String) {
+        dialog.show(supportFragmentManager, tag)
     }
 
     fun replaceFragment(fragment: Fragment, backStack: Boolean = false) {
