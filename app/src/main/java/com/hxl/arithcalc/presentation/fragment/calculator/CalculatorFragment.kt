@@ -1,4 +1,7 @@
 package com.hxl.arithcalc.presentation.fragment.calculator
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -8,7 +11,9 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.hxl.arithcalc.R
 import com.hxl.arithcalc.databinding.FragmentCalculatorBinding
 import com.hxl.arithcalc.presentation.fragment.calculator.keyboard.KeyboardCalculator
 import kotlin.math.ceil
@@ -27,6 +32,7 @@ class CalculatorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initKeyboard()
         initBottomSheet()
+        initNavigation()
     }
 
     private fun initKeyboard() {
@@ -58,5 +64,38 @@ class CalculatorFragment : Fragment() {
                 BottomSheetBehavior.from(binding.bottomSheet).state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
+    }
+
+    private fun initNavigation() {
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.theme -> { true }
+                R.id.rate -> {
+                    try {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=${requireActivity().packageName}")
+                            )
+                        )
+                    } catch (e: ActivityNotFoundException) {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("http://play.google.com/store/apps/details?id=${requireActivity().packageName}")
+                            )
+                        )
+                    }
+                    true
+                }
+                R.id.licenses -> {
+                    startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+
+        binding.topAppBar.setNavigationOnClickListener {  }
     }
 }
