@@ -8,4 +8,5 @@ interface PreferenceStorage {
     fun save(key: String , value: Int)
 
     fun get(key: String, default: Int): Int
+
 }
