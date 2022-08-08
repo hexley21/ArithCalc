@@ -15,12 +15,15 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hxl.arithcalc.R
 import com.hxl.arithcalc.databinding.FragmentCalculatorBinding
+import com.hxl.arithcalc.presentation.activity.MainActivity
 import com.hxl.arithcalc.presentation.fragment.calculator.keyboard.KeyboardCalculator
+import com.hxl.arithcalc.presentation.fragment.dialogs.theme.ThemeDialog
 import kotlin.math.ceil
 
 
 class CalculatorFragment : Fragment() {
     private lateinit var binding: FragmentCalculatorBinding
+    private val themeDialog = ThemeDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -69,7 +72,10 @@ class CalculatorFragment : Fragment() {
     private fun initNavigation() {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.theme -> { true }
+                R.id.theme -> {
+                    (requireActivity() as MainActivity).showDialog(themeDialog, ThemeDialog.TAG)
+                    true
+                }
                 R.id.rate -> {
                     try {
                         startActivity(
@@ -97,5 +103,12 @@ class CalculatorFragment : Fragment() {
         }
 
         binding.topAppBar.setNavigationOnClickListener {  }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (themeDialog.isStateSaved || themeDialog.isAdded || themeDialog.isVisible) {
+            themeDialog.dismissAllowingStateLoss()
+        }
     }
 }
