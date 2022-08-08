@@ -30,5 +30,16 @@ class EquationHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.topHistoryBar.setNavigationOnClickListener { parentFragmentManager.popBackStack() }
+
+        vm.viewModelScope.launch(Dispatchers.IO) {
+            history = vm.readEquationHistory()
+        }.invokeOnCompletion {
+            requireActivity().runOnUiThread {
+                val rvHistory = binding.rvHistory
+                rvHistory.layoutManager = LinearLayoutManager(requireContext())
+                rvHistory.adapter = EquationHistoryRecyclerAdapter(history)
+                rvHistory.scrollToPosition(history.size - 1)
+            }
+        }
     }
 }
