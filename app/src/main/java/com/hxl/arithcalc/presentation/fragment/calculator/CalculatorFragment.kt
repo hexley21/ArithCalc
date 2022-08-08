@@ -1,4 +1,5 @@
 package com.hxl.arithcalc.presentation.fragment.calculator
+
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -11,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hxl.arithcalc.R
@@ -18,11 +20,14 @@ import com.hxl.arithcalc.databinding.FragmentCalculatorBinding
 import com.hxl.arithcalc.presentation.activity.MainActivity
 import com.hxl.arithcalc.presentation.fragment.calculator.keyboard.KeyboardCalculator
 import com.hxl.arithcalc.presentation.fragment.dialogs.theme.ThemeDialog
+import com.hxl.arithcalc.presentation.fragment.equation_history.EquationHistoryFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.ceil
 
-
+@AndroidEntryPoint
 class CalculatorFragment : Fragment() {
     private lateinit var binding: FragmentCalculatorBinding
+    private val vm: CalculatorViewModel by viewModels()
     private val themeDialog = ThemeDialog()
 
     override fun onCreateView(
@@ -57,14 +62,15 @@ class CalculatorFragment : Fragment() {
             state = BottomSheetBehavior.STATE_COLLAPSED
         }
         var isExpanded = false
-        binding.bottomSheet.setOnClickListener{
-            if (!isExpanded){
+        binding.bottomSheet.setOnClickListener {
+            if (!isExpanded) {
                 isExpanded = true
-                BottomSheetBehavior.from(binding.bottomSheet).state = BottomSheetBehavior.STATE_EXPANDED
-            }
-            else{
+                BottomSheetBehavior.from(binding.bottomSheet).state =
+                    BottomSheetBehavior.STATE_EXPANDED
+            } else {
                 isExpanded = false
-                BottomSheetBehavior.from(binding.bottomSheet).state = BottomSheetBehavior.STATE_COLLAPSED
+                BottomSheetBehavior.from(binding.bottomSheet).state =
+                    BottomSheetBehavior.STATE_COLLAPSED
             }
         }
     }
@@ -102,7 +108,9 @@ class CalculatorFragment : Fragment() {
             }
         }
 
-        binding.topAppBar.setNavigationOnClickListener {  }
+        binding.topAppBar.setNavigationOnClickListener {
+            (requireActivity() as MainActivity).replaceFragment(EquationHistoryFragment(), true)
+        }
     }
 
     override fun onStop() {
