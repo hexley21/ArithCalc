@@ -51,8 +51,8 @@ class CalculatorFragment : Fragment() {
         editText.setTextIsSelectable(true)
         editText.showSoftInputOnFocus = false
 
-        val ic : InputConnection = editText.onCreateInputConnection(EditorInfo())
-        keyboard.setConnection(ic, binding.resultField)
+        val ic: InputConnection = editText.onCreateInputConnection(EditorInfo())
+        keyboard.setConnection(ic, binding.resultField, vm.insertEquationHistory)
     }
 
     private fun initBottomSheet() {
