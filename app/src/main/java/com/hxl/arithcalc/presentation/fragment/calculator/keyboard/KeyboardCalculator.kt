@@ -13,10 +13,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.hxl.arithcalc.R
 import com.hxl.arithcalc.databinding.KeyboardCalculatorBinding
-
+import net.objecthunter.exp4j.Expression
+import net.objecthunter.exp4j.ExpressionBuilder
+import java.text.DecimalFormat
 
 class KeyboardCalculator(context: Context, attrs: AttributeSet) :
-    LinearLayout(context, attrs, 0), View.OnClickListener {
+LinearLayout(context, attrs, 0), View.OnClickListener {
     private var binding: KeyboardCalculatorBinding
 
     private var buttonBackSpace: Button
@@ -98,11 +100,8 @@ class KeyboardCalculator(context: Context, attrs: AttributeSet) :
         buttonPercent.setOnClickListener(this)
         buttonComma.setOnClickListener(this)
         buttonEvaluate.setOnClickListener(this)
+
         keyValues.put(buttonPower.id, getStringResource(R.string.btn_pow))
-        keyValues.put(buttonAddition.id, getStringResource(R.string.btn_addition))
-        keyValues.put(buttonSubtraction.id, getStringResource(R.string.btn_subtraction))
-        keyValues.put(buttonMultiplication.id, getStringResource(R.string.btn_multiplication))
-        keyValues.put(buttonDivision.id, getStringResource(R.string.btn_division))
         keyValues.put(buttonOne.id, getStringResource(R.string.btn_one))
         keyValues.put(buttonTwo.id, getStringResource(R.string.btn_two))
         keyValues.put(buttonThree.id, getStringResource(R.string.btn_three))
@@ -115,13 +114,18 @@ class KeyboardCalculator(context: Context, attrs: AttributeSet) :
         keyValues.put(buttonZero.id, getStringResource(R.string.btn_zero))
         keyValues.put(buttonPercent.id, getStringResource(R.string.btn_percent))
         keyValues.put(buttonComma.id, getStringResource(R.string.btn_comma))
-        keyValues.put(buttonClear.id, getStringResource(R.string.btn_clear))
-        keyValues.put(buttonEvaluate.id, getStringResource(R.string.btn_eval))
     }
 
     override fun onClick(v: View) {
         when (v.id) {
             buttonBackSpace.id -> onBackspace()
+            buttonClear.id -> onClear()
+            buttonEvaluate.id -> onEval()
+            buttonAddition.id -> onOperator(operatorArray[0])
+            buttonSubtraction.id -> onOperator(operatorArray[1])
+            buttonMultiplication.id -> onOperator(operatorArray[2])
+            buttonDivision.id -> onOperator(operatorArray[3])
+            buttonComma.id -> onComma()
             else -> onElse(v.id)
         }
     }
@@ -133,8 +137,63 @@ class KeyboardCalculator(context: Context, attrs: AttributeSet) :
             inputConnection.commitText("", 1)
         }
     }
+
+    private fun onClear() {
+        val currentText = getText()
+        val beforeCursorText = inputConnection.getTextBeforeCursor(currentText.length, 0)
+        val afterCursorText = inputConnection.getTextAfterCursor(currentText.length, 0)
+        inputConnection.deleteSurroundingText(beforeCursorText!!.length, afterCursorText!!.length)
+        resultField.text = ""
+        operatorList = mutableListOf()
+        commaList = mutableListOf()
+        isEvaluated = false
+    }
+
     private fun onElse(id: Int) {
         commitText(keyValues[id])
+    }
+
+    private fun onOperator(op: Char) {
+        operatorList.add(getText().length)
+        commitText(op.toString())
+    }
+
+    private fun onComma() {
+        commaList.add(getText().length)
+        commitText(",")
+    }
+
+    private fun onEval() {
+        if (!isEvaluated) {
+            val text = getText().toString()
+                .replace("%", "pr")
+                .replace('×', '*')
+                .replace('÷', '/')
+                .replace(',', '.')
+            try {
+                val expression: Expression = ExpressionBuilder(text)
+                    .variable("pr")
+                    .build()
+                    .setVariable("pr", 0.01)
+                val df = DecimalFormat("#")
+                df.maximumFractionDigits = 8
+
+                val result = df.format(expression.evaluate()).toString()
+                    .replace('.', ',')
+                setResult(result)
+                isEvaluated = true
+            } catch (e: Exception) {
+                setResult("${e.message}")
+            }
+        } else {
+            val result = resultField.text
+            onClear()
+            commitText(result.toString(), 1)
+        }
+    }
+
+    private fun getText(): CharSequence {
+        return inputConnection.getExtractedText(ExtractedTextRequest(), 0).text
     }
 
     private fun getStringResource(id: Int): String {
@@ -143,6 +202,10 @@ class KeyboardCalculator(context: Context, attrs: AttributeSet) :
 
     private fun commitText(text: String, position: Int = 1) {
         inputConnection.commitText(text, position)
+    }
+
+    private fun setResult(text: String) {
+        resultField.text = text
     }
 
     fun setConnection(ic: InputConnection?, textView: TextView) {
