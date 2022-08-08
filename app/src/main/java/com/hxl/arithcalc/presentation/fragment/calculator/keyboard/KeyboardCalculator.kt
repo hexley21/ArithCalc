@@ -3,6 +3,7 @@ package com.hxl.arithcalc.presentation.fragment.calculator.keyboard
 import android.content.Context
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -136,16 +137,25 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
             buttonMultiplication.id -> onOperator(operatorArray[2])
             buttonDivision.id -> onOperator(operatorArray[3])
             buttonComma.id -> onComma()
+            buttonPercent.id -> onPercent()
             else -> onElse(v.id)
         }
     }
 
     private fun onBackspace() {
-        if (TextUtils.isEmpty(inputConnection.getSelectedText(0))) {
-            inputConnection.deleteSurroundingText(1, 0)
-        } else {
-            inputConnection.commitText("", 1)
+        val text = getText()
+        val scientific = endsWithScientific()
+        if (scientific != 0 && TextUtils.isEmpty(inputConnection.getSelectedText(0))) {
+            inputConnection.setSelection(text.length - scientific, text.length)
+            commitText("", 1)
         }
+        else if (TextUtils.isEmpty(inputConnection.getSelectedText(0))) {
+            inputConnection.deleteSurroundingText(1, 0)
+        }
+        else {
+            commitText("", 1)
+        }
+        checkText()
     }
 
     private fun onClear() {
@@ -175,6 +185,7 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     }
 
     private fun onEval() {
+
         val result = evaluate()
         if (!isError) {
             CoroutineScope(Dispatchers.IO).launch {
@@ -190,12 +201,44 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
         }
     }
 
-    private fun evaluate(): String {
-        val text = getText().toString()
-            .replace("%", "pr")
+    private fun onPercent(){
+        val text = getText().toString().replace(',', '.')
+        try {
+            if (operatorList.isNotEmpty() && text.last() in numberArray) {
+                var numberStr = ""
+                // Percent Number
+                for (i in operatorList.last()+1 until text.length) {
+                    if (text[i] in numberArray || text[i] == '.') {
+                        numberStr += text[i]
+                    }
+                }
+                val numberPercent: Double = numberStr.toDouble()
+                numberStr = ""
+                // Number First
+                for (i in preLastOrZero(operatorList)..operatorList.last()){
+                    if (text[i] in numberArray || text[i] == '.') {
+                        numberStr += text[i]
+                    }
+                }
+                val firstNumber = numberStr.toDouble()
+                val result = firstNumber * (numberPercent/100.0)
+                inputConnection.setSelection(operatorList.last()+1, text.length)
+                commitText(result.toString().replace('.', ','), 1)
+                setResult(evaluate())
+            }
+        }
+        catch (e: Exception) {
+            Log.e("CALCULATOR", e.localizedMessage, e)
+        }
+    }
+
+    fun evaluate(): String {
+        val text = getText().toString().replace("%", "pr")
+            .replace("√", "sqrt")
             .replace('×', '*')
             .replace('÷', '/')
-            .replace(',', '.')
+            .replace(',', '.') + ")".repeat(checkBrackets())
+
         return try {
             val expression: Expression = ExpressionBuilder(text)
                 .variable("pr")
@@ -211,6 +254,43 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
             isError = true
             "${e.message}"
         }
+    }
+
+    private fun checkBrackets(): Int {
+        val text = getText()
+        val open = text.count { it == '(' }
+        val close = text.count { it == ')' }
+        return if (open > close) {
+            open - close
+        }
+        else {
+            0
+        }
+    }
+    fun checkText() {
+        val text = getText()
+        numberList = mutableListOf()
+        commaList = mutableListOf()
+        for (i in text.indices){
+            if (text[i] in numberArray) {
+                numberList.add(i)
+            }
+            else if (text[i] == ',') {
+                commaList.add(i)
+            }
+        }
+    }
+
+    private fun endsWithScientific(): Int {
+        var result = 0
+        val text = getText()
+        for (i in scientificArray) {
+            if (text.endsWith(i)) {
+                result = i.length
+                break
+            }
+        }
+        return result
     }
 
     private fun getText(): CharSequence {
@@ -237,5 +317,10 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
         inputConnection = ic!!
         resultField = textView
         insertEquationHistory = insertEquation
+    }
+
+    private fun preLastOrZero(list: List<Int>): Int {
+        if (list.size > 1) { return list[list.size-2] }
+        return 0
     }
 }

@@ -170,4 +170,12 @@ class CalculatorFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View) {
         ic.commitText(keyValues[v.id], 1)
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (binding.inputField.text.isNotEmpty()) {
+            binding.resultField.text = binding.softKeyboard.evaluate()
+            binding.softKeyboard.checkText()
+        }
+    }
 }
