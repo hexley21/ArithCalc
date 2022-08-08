@@ -121,7 +121,7 @@
                         android:gravity="center|start">
 
                         <Button
-                            android:id="@+id/button_pi"
+                            android:id="@+id/btn_pi"
                             style="@style/Widget.Material3.Button.TextButton.Icon"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                             app:rippleColor="?attr/colorPrimaryInverse" />
 
                         <Button
-                            android:id="@+id/button_br_open"
+                            android:id="@+id/btn_bracket_open"
                             style="@style/Widget.Material3.Button.TextButton.Icon"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                             app:rippleColor="?attr/colorPrimaryInverse" />
 
                         <Button
-                            android:id="@+id/button_br_close"
+                            android:id="@+id/btn_bracket_close"
                             style="@style/Widget.Material3.Button.TextButton.Icon"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
                             app:rippleColor="?attr/colorPrimaryInverse" />
 
                         <Button
-                            android:id="@+id/button_root"
+                            android:id="@+id/btn_root"
                             style="@style/Widget.Material3.Button.TextButton.Icon"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                             app:rippleColor="?attr/colorPrimaryInverse" />
 
                         <Button
-                            android:id="@+id/button_sin"
+                            android:id="@+id/btn_sin"
                             style="@style/Widget.Material3.Button.TextButton.Icon"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                             app:rippleColor="?attr/colorPrimaryInverse" />
 
                         <Button
-                            android:id="@+id/button_cos"
+                            android:id="@+id/btn_cos"
                             style="@style/Widget.Material3.Button.TextButton.Icon"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
                             app:rippleColor="?attr/colorPrimaryInverse" />
 
                         <Button
-                            android:id="@+id/button_tan"
+                            android:id="@+id/btn_tan"
                             style="@style/Widget.Material3.Button.TextButton.Icon"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -223,7 +223,7 @@
                             app:rippleColor="?attr/colorPrimaryInverse" />
 
                         <Button
-                            android:id="@+id/button_cot"
+                            android:id="@+id/btn_cot"
                             style="@style/Widget.Material3.Button.TextButton.Icon"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
@@ -238,7 +238,7 @@
                             app:rippleColor="?attr/colorPrimaryInverse" />
 
                         <Button
-                            android:id="@+id/button_log"
+                            android:id="@+id/btn_log"
                             style="@style/Widget.Material3.Button.TextButton.Icon"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
