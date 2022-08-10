@@ -161,12 +161,18 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
 
     private fun onClear() {
         val currentText = getText()
-        val beforeCursorText = inputConnection.getTextBeforeCursor(currentText.length, 0)
-        val afterCursorText = inputConnection.getTextAfterCursor(currentText.length, 0)
-        inputConnection.deleteSurroundingText(beforeCursorText!!.length, afterCursorText!!.length)
-        resultField.text = ""
-        operatorList = mutableListOf()
+        if (TextUtils.isEmpty(inputConnection.getSelectedText(0))) {
+            val beforeCursorText = inputConnection.getTextBeforeCursor(currentText.length, 0)
+            val afterCursorText = inputConnection.getTextAfterCursor(currentText.length, 0)
+            inputConnection.deleteSurroundingText(beforeCursorText!!.length, afterCursorText!!.length)
+        }
+        else {
+            inputConnection.setSelection(0, currentText.length)
+            commitText("")
+        }
         commaList = mutableListOf()
+        operatorList = mutableListOf()
+        resultField.text = ""
         isError = false
     }
 
@@ -186,7 +192,6 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     }
 
     private fun onEval() {
-
         val result = evaluate()
         val text = getText().toString() + ")".repeat(checkBrackets())
         if (!isError) {
