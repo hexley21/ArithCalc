@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg9"
+   width="320"
+   height="320"
+   viewBox="0 0 320 320"
+   sodipodi:docname="arithcalc.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs13">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect14862"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,0,1,0,38.333,0,1 @ F,0,0,1,0,38.333,0,1 @ F,0,0,1,0,38.333,0,1 @ F,0,0,1,0,38.333,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="38.333"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview11"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:snap-others="false"
+     inkscape:object-nodes="false"
+     inkscape:snap-nodes="false"
+     inkscape:snap-global="false"
+     inkscape:zoom="0.7734375"
+     inkscape:cx="50.424242"
+     inkscape:cy="66.585859"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g15" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g15"
+     style="display:inline">
+    <path
+       id="rect14557"
+       style="fill:#00a2e8;fill-opacity:1;stroke-width:1.20358"
+       d="M 0,159.61932 17.458368,177.16101 159.61934,320 177.16101,302.5416 320,160.38068 302.54162,142.83901 177.83902,17.541654 160.38069,0 142.83902,17.45836 17.541639,142.16096 Z m 35.000006,0.0832 L 160.29743,34.999984 284.99999,160.29742 159.70261,284.99998 Z" />
+    <g
+       aria-label="+"
+       transform="scale(1.0007796,0.999221)"
+       id="text1949"
+       style="font-size:223.476px;line-height:1.25;fill:#00a2e8;stroke-width:5.58692">
+      <path
+         d="m 172.86044,90.070163 v 57.178427 h 56.96019 v 25.75212 h -56.96019 v 57.17843 H 146.89008 V 173.00071 H 89.929891 V 147.24859 H 146.89008 V 90.070163 Z"
+         style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold'"
+         id="path5625" />
+    </g>
+  </g>
+</svg>
