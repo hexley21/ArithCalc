@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">ArithCalc</string>
+
+    <!-- Buttons -->
+    <string name="btn_clear">C</string>
+    <string name="btn_pow">^</string>
+    <string name="btn_division">÷</string>
+    <string name="btn_multiplication">×</string>
+    <string name="btn_subtraction">-</string>
+    <string name="btn_addition">+</string>
+    <string name="btn_one">1</string>
+    <string name="btn_two">2</string>
+    <string name="btn_three">3</string>
+    <string name="btn_four">4</string>
+    <string name="btn_five">5</string>
+    <string name="btn_six">6</string>
+    <string name="btn_seven">7</string>
+    <string name="btn_eight">8</string>
+    <string name="btn_nine">9</string>
+    <string name="btn_zero">0</string>
+    <string name="btn_percent">%</string>
+    <string name="btn_comma">,</string>
+    <string name="btn_eval">=</string>
+
+    <!-- Additional Buttons-->
+    <string name="btn_pi">π</string>
+    <string name="btn_bracket_open">(</string>
+    <string name="btn_bracket_close">)</string>
+    <string name="btn_root">√</string>
+    <string name="btn_sin">sin</string>
+    <string name="btn_cos">cos</string>
+    <string name="btn_tan">tan</string>
+    <string name="btn_cot">cot</string>
+    <string name="btn_log">log</string>
+
+    <string name="menu_theme">Theme</string>
+    <string name="menu_rate">Rate</string>
+    <string name="menu_licenses">Licenses</string>
+    <string name="menu_clear">Clear history</string>
+    <string name="select_theme">Select Theme</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string-array name="theme_choice">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System</item>
+    </string-array>
+
+    <!-- Content Description -->
+    <string name="desc_backspace">Backspace</string>
+</resources>
