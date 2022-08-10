@@ -146,11 +146,9 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     }
 
     private fun onBackspace() {
-        val text = getText()
         val scientific = endsWithScientific()
         if (scientific != 0 && TextUtils.isEmpty(inputConnection.getSelectedText(0))) {
-            inputConnection.setSelection(text.length - scientific, text.length)
-            commitText("", 1)
+            inputConnection.deleteSurroundingText(scientific, 0)
         }
         else if (TextUtils.isEmpty(inputConnection.getSelectedText(0))) {
             inputConnection.deleteSurroundingText(1, 0)
@@ -285,7 +283,7 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
 
     private fun endsWithScientific(): Int {
         var result = 0
-        val text = getText()
+        val text = inputConnection.getTextBeforeCursor(getText().length, 0).toString()
         for (i in scientificArray) {
             if (text.endsWith(i)) {
                 result = i.length
