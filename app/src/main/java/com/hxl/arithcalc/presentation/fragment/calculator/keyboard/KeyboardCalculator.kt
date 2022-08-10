@@ -56,6 +56,7 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     private lateinit var inputConnection: InputConnection
     private lateinit var resultField: TextView
     private lateinit var insertEquationHistory: InsertEquationHistory
+    private val df = DecimalFormat("#")
 
     private val operatorArray = arrayOf('+', '-', '×', '÷')
     private val scientificArray = arrayOf("√(", "sin(", "cos(", "tan(", "cot(", "log(")
@@ -125,6 +126,8 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
         keyValues.put(buttonZero.id, getStringResource(R.string.btn_zero))
         keyValues.put(buttonPercent.id, getStringResource(R.string.btn_percent))
         keyValues.put(buttonComma.id, getStringResource(R.string.btn_comma))
+
+        df.maximumFractionDigits = 8
     }
 
     override fun onClick(v: View) {
@@ -187,9 +190,10 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     private fun onEval() {
 
         val result = evaluate()
+        val text = getText().toString() + ")".repeat(checkBrackets())
         if (!isError) {
             CoroutineScope(Dispatchers.IO).launch {
-                insertEquationHistory(Equation(getText() as String, result))
+                insertEquationHistory(Equation(text, result))
             }.invokeOnCompletion {
                 MainScope().launch {
                     onClear()
@@ -223,7 +227,7 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
                 val firstNumber = numberStr.toDouble()
                 val result = firstNumber * (numberPercent/100.0)
                 inputConnection.setSelection(operatorList.last()+1, text.length)
-                commitText(result.toString().replace('.', ','), 1)
+                commitText(df.format(result).toString().replace('.', ','), 1)
                 setResult(evaluate())
             }
         }
@@ -244,8 +248,6 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
                 .variable("pr")
                 .build()
                 .setVariable("pr", 0.01)
-            val df = DecimalFormat("#")
-            df.maximumFractionDigits = 8
 
             isError = false
             df.format(expression.evaluate()).toString()
