@@ -30,7 +30,7 @@ class EquationHistoryRecyclerAdapter(private val equationHistory: List<Equation>
                 holder.binding.root.context.theme.resolveAttribute(com.google.android.material.R.attr.colorSurface,value, true)
             }
             else -> {
-                holder.binding.root.context.theme.resolveAttribute(com.google.android.material.R.attr.colorOnSecondary,value, true)
+                holder.binding.root.context.theme.resolveAttribute(com.google.android.material.R.attr.colorSecondaryContainer,value, true)
             }
         }
         holder.binding.itemHolder.setBackgroundColor(value.data)

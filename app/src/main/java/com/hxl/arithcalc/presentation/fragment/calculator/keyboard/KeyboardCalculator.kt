@@ -56,6 +56,7 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     private lateinit var inputConnection: InputConnection
     private lateinit var resultField: TextView
     private lateinit var insertEquationHistory: InsertEquationHistory
+    private val df = DecimalFormat("#")
 
     private val operatorArray = arrayOf('+', '-', '×', '÷')
     private val scientificArray = arrayOf("√(", "sin(", "cos(", "tan(", "cot(", "log(")
@@ -125,6 +126,8 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
         keyValues.put(buttonZero.id, getStringResource(R.string.btn_zero))
         keyValues.put(buttonPercent.id, getStringResource(R.string.btn_percent))
         keyValues.put(buttonComma.id, getStringResource(R.string.btn_comma))
+
+        df.maximumFractionDigits = 8
     }
 
     override fun onClick(v: View) {
@@ -143,11 +146,9 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     }
 
     private fun onBackspace() {
-        val text = getText()
         val scientific = endsWithScientific()
         if (scientific != 0 && TextUtils.isEmpty(inputConnection.getSelectedText(0))) {
-            inputConnection.setSelection(text.length - scientific, text.length)
-            commitText("", 1)
+            inputConnection.deleteSurroundingText(scientific, 0)
         }
         else if (TextUtils.isEmpty(inputConnection.getSelectedText(0))) {
             inputConnection.deleteSurroundingText(1, 0)
@@ -160,12 +161,18 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
 
     private fun onClear() {
         val currentText = getText()
-        val beforeCursorText = inputConnection.getTextBeforeCursor(currentText.length, 0)
-        val afterCursorText = inputConnection.getTextAfterCursor(currentText.length, 0)
-        inputConnection.deleteSurroundingText(beforeCursorText!!.length, afterCursorText!!.length)
-        resultField.text = ""
-        operatorList = mutableListOf()
+        if (TextUtils.isEmpty(inputConnection.getSelectedText(0))) {
+            val beforeCursorText = inputConnection.getTextBeforeCursor(currentText.length, 0)
+            val afterCursorText = inputConnection.getTextAfterCursor(currentText.length, 0)
+            inputConnection.deleteSurroundingText(beforeCursorText!!.length, afterCursorText!!.length)
+        }
+        else {
+            inputConnection.setSelection(0, currentText.length)
+            commitText("")
+        }
         commaList = mutableListOf()
+        operatorList = mutableListOf()
+        resultField.text = ""
         isError = false
     }
 
@@ -185,11 +192,11 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     }
 
     private fun onEval() {
-
         val result = evaluate()
+        val text = getText().toString() + ")".repeat(checkBrackets())
         if (!isError) {
             CoroutineScope(Dispatchers.IO).launch {
-                insertEquationHistory(Equation(getText() as String, result))
+                insertEquationHistory(Equation(text, result))
             }.invokeOnCompletion {
                 MainScope().launch {
                     onClear()
@@ -223,7 +230,7 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
                 val firstNumber = numberStr.toDouble()
                 val result = firstNumber * (numberPercent/100.0)
                 inputConnection.setSelection(operatorList.last()+1, text.length)
-                commitText(result.toString().replace('.', ','), 1)
+                commitText(df.format(result).toString().replace('.', ','), 1)
                 setResult(evaluate())
             }
         }
@@ -244,8 +251,6 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
                 .variable("pr")
                 .build()
                 .setVariable("pr", 0.01)
-            val df = DecimalFormat("#")
-            df.maximumFractionDigits = 8
 
             isError = false
             df.format(expression.evaluate()).toString()
@@ -283,7 +288,7 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
 
     private fun endsWithScientific(): Int {
         var result = 0
-        val text = getText()
+        val text = inputConnection.getTextBeforeCursor(getText().length, 0).toString()
         for (i in scientificArray) {
             if (text.endsWith(i)) {
                 result = i.length
