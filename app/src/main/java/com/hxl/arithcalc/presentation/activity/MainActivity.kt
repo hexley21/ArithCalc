@@ -51,4 +51,12 @@ class MainActivity : AppCompatActivity() {
             ft.commit()
         }
     }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

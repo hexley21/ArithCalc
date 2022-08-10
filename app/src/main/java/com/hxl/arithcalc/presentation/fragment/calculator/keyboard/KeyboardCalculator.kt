@@ -13,10 +13,19 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.hxl.arithcalc.R
 import com.hxl.arithcalc.databinding.KeyboardCalculatorBinding
+import com.hxl.domain.models.Equation
+import com.hxl.domain.usecase.database.history.InsertEquationHistory
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
 import java.text.DecimalFormat
 
+
+@AndroidEntryPoint
 class KeyboardCalculator(context: Context, attrs: AttributeSet) :
 LinearLayout(context, attrs, 0), View.OnClickListener {
     private var binding: KeyboardCalculatorBinding
@@ -45,12 +54,13 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     private val keyValues = SparseArray<String>()
     private lateinit var inputConnection: InputConnection
     private lateinit var resultField: TextView
+    private lateinit var insertEquationHistory: InsertEquationHistory
 
     private val operatorArray = arrayOf('+', '-', '×', '÷')
     private val scientificArray = arrayOf("√(", "sin(", "cos(", "tan(", "cot(", "log(")
     private val numberArray = arrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
 
-    private var isEvaluated = false
+    private var isError = false
     private var operatorList: MutableList<Int> = mutableListOf()
     private var commaList: MutableList<Int> = mutableListOf()
     private var numberList: MutableList<Int> = mutableListOf()
@@ -146,11 +156,12 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
         resultField.text = ""
         operatorList = mutableListOf()
         commaList = mutableListOf()
-        isEvaluated = false
+        isError = false
     }
 
     private fun onElse(id: Int) {
         commitText(keyValues[id])
+        setResult(evaluate())
     }
 
     private fun onOperator(op: Char) {
@@ -164,31 +175,41 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
     }
 
     private fun onEval() {
-        if (!isEvaluated) {
-            val text = getText().toString()
-                .replace("%", "pr")
-                .replace('×', '*')
-                .replace('÷', '/')
-                .replace(',', '.')
-            try {
-                val expression: Expression = ExpressionBuilder(text)
-                    .variable("pr")
-                    .build()
-                    .setVariable("pr", 0.01)
-                val df = DecimalFormat("#")
-                df.maximumFractionDigits = 8
-
-                val result = df.format(expression.evaluate()).toString()
-                    .replace('.', ',')
-                setResult(result)
-                isEvaluated = true
-            } catch (e: Exception) {
-                setResult("${e.message}")
+        val result = evaluate()
+        if (!isError) {
+            CoroutineScope(Dispatchers.IO).launch {
+                insertEquationHistory(Equation(getText() as String, result))
+            }.invokeOnCompletion {
+                MainScope().launch {
+                    onClear()
+                    commitText(result, 1)
+                }
             }
         } else {
-            val result = resultField.text
-            onClear()
-            commitText(result.toString(), 1)
+            setResult(result)
+        }
+    }
+
+    private fun evaluate(): String {
+        val text = getText().toString()
+            .replace("%", "pr")
+            .replace('×', '*')
+            .replace('÷', '/')
+            .replace(',', '.')
+        return try {
+            val expression: Expression = ExpressionBuilder(text)
+                .variable("pr")
+                .build()
+                .setVariable("pr", 0.01)
+            val df = DecimalFormat("#")
+            df.maximumFractionDigits = 8
+
+            isError = false
+            df.format(expression.evaluate()).toString()
+                .replace('.', ',')
+        } catch (e: Exception) {
+            isError = true
+            "${e.message}"
         }
     }
 
@@ -208,8 +229,13 @@ LinearLayout(context, attrs, 0), View.OnClickListener {
         resultField.text = text
     }
 
-    fun setConnection(ic: InputConnection?, textView: TextView) {
+    fun setConnection(
+        ic: InputConnection?,
+        textView: TextView,
+        insertEquation: InsertEquationHistory
+    ) {
         inputConnection = ic!!
         resultField = textView
+        insertEquationHistory = insertEquation
     }
 }

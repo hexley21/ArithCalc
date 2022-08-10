@@ -59,7 +59,6 @@
                 android:importantForAutofill="no"
                 android:inputType="none"
                 android:lineSpacingExtra="8sp"
-                android:text="@string/btn_zero"
                 android:textAlignment="viewEnd"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="30sp"
