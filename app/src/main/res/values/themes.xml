@@ -32,6 +32,11 @@
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m" tools:ignore="NewApi">true</item>
     </style>
+    <style name="CalculatorButton" parent="MyTonalButton">
+        <item name="backgroundTint">#F0F0F3</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="iconTint">@color/md_theme_light_onPrimaryContainer</item>
+    </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/md_theme_light_surface</item>

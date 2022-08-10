@@ -50,6 +50,8 @@ dependencies {
     // Open-source notices
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
+    // Math expression parse
+    implementation 'net.objecthunter:exp4j:0.4.8'
 
     // Unit tests
     testImplementation "junit:junit:4.13.2"
