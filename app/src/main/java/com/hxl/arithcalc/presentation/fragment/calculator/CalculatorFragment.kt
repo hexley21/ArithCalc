@@ -1,4 +1,7 @@
 package com.hxl.arithcalc.presentation.fragment.calculator
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -8,14 +11,19 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.hxl.arithcalc.R
 import com.hxl.arithcalc.databinding.FragmentCalculatorBinding
+import com.hxl.arithcalc.presentation.activity.MainActivity
 import com.hxl.arithcalc.presentation.fragment.calculator.keyboard.KeyboardCalculator
+import com.hxl.arithcalc.presentation.fragment.dialogs.theme.ThemeDialog
 import kotlin.math.ceil
 
 
 class CalculatorFragment : Fragment() {
     private lateinit var binding: FragmentCalculatorBinding
+    private val themeDialog = ThemeDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -27,6 +35,7 @@ class CalculatorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initKeyboard()
         initBottomSheet()
+        initNavigation()
     }
 
     private fun initKeyboard() {
@@ -57,6 +66,49 @@ class CalculatorFragment : Fragment() {
                 isExpanded = false
                 BottomSheetBehavior.from(binding.bottomSheet).state = BottomSheetBehavior.STATE_COLLAPSED
             }
+        }
+    }
+
+    private fun initNavigation() {
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.theme -> {
+                    (requireActivity() as MainActivity).showDialog(themeDialog, ThemeDialog.TAG)
+                    true
+                }
+                R.id.rate -> {
+                    try {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=${requireActivity().packageName}")
+                            )
+                        )
+                    } catch (e: ActivityNotFoundException) {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("http://play.google.com/store/apps/details?id=${requireActivity().packageName}")
+                            )
+                        )
+                    }
+                    true
+                }
+                R.id.licenses -> {
+                    startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+
+        binding.topAppBar.setNavigationOnClickListener {  }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (themeDialog.isStateSaved || themeDialog.isAdded || themeDialog.isVisible) {
+            themeDialog.dismissAllowingStateLoss()
         }
     }
 }

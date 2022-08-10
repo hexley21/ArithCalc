@@ -35,6 +35,7 @@
 
     <string name="menu_theme">Theme</string>
     <string name="menu_rate">Rate</string>
+    <string name="menu_licenses">Licenses</string>
     <string name="menu_clear">Clear history</string>
     <string name="select_theme">Select Theme</string>
     <string name="ok">OK</string>
