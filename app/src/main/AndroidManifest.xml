@@ -4,6 +4,7 @@
     package="com.hxl.arithcalc">
 
     <application
+        android:name="com.hxl.arithcalc.app.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
