@@ -25,7 +25,11 @@
 [![Pull Requests welcome](https://img.shields.io/badge/PRs-welcome-00a2e8.svg?style=flat-square)](https://github.com/hexley21/ArithCalc/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 
 </div>
+<div align="center">
 
+[<img src="https://cdn.rawgit.com/steverichey/google-play-badge-svg/master/img/en_get.svg" width="250px">](https://play.google.com/store/apps/details?id=com.hxl.arithcalc)
+
+</div>
 <details open="open">
 <summary>Table of Contents</summary>
 
@@ -49,12 +53,12 @@ ArithCalc is a compact calculator, where everyday or advanced difficulty mathema
 <summary>Screenshots</summary>
 <br>
 
-|                               Calculator                               |                               Calculation History                                   |
-| :-------------------------------------------------------------------: | :--------------------------------------------------------------------: |
+|                                    Calculator                                     |                              Calculation History                              |
+|:---------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:|
 | <img src="docs/images/screenshot_calculator.jpg" title="Calculator" width="100%"> | <img src="docs/images/screenshot_history.jpg" title="Dark mode" width="100%"> |
 
-|                               Showcase                               |                               Dark Mode                                  |
-| :-------------------------------------------------------------------: | :--------------------------------------------------------------------: |
+|                              Showcase                              |                                 Dark Mode                                  |
+|:------------------------------------------------------------------:|:--------------------------------------------------------------------------:|
 | <img src="docs/images/showcase.gif" title="Showcase" width="100%"> | <img src="docs/images/screenshot_dark.jpg" title="Dark mode" width="100%"> |
 </details>
 
@@ -69,9 +73,9 @@ Calculator is divided into three layers:
   - **Fragments**
   - **ViewModels**
   - **Dependency Injection**
-  
+
 - **domain** - *Contains the business logic of the application. It is the individual and innermost module. It’s a complete java module.*
-  
+
   - **Repository interface** - A place where functionality blueprint is kept, which will be implemented in data module*
   - **UseCases** - Each individual functionality, like inserting or reading data from Database, they act as a mediator between our Repository and app module
   - **Models** - Entities or a Value Object
@@ -81,9 +85,9 @@ Calculator is divided into three layers:
   - **Database** - Repository implementations contain database functionality
 
 **Data Flow**
-  - If a user event is triggered in UI then we communicate it with ViewModel.
-  - ViewModel connects with the use case to get the result for the action.
-  - The use case then interacts with the repository class to get the solution from database or preference
+- If a user event is triggered in UI then we communicate it with ViewModel.
+- ViewModel connects with the use case to get the result for the action.
+- The use case then interacts with the repository class to get the solution from database or preference
 
 **MVVM**
 - [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) is a software architectural pattern that facilitates the separation of the development of the graphical user interface (the view) from the development of the business logic or back-end logic (the model) so that the view is not dependent on any specific model platform.
@@ -94,8 +98,8 @@ Calculator is divided into three layers:
 - Asynchronous approach - [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
 
 **Credits**
- - Clean Architecture - [Medium article](https://medium.com/android-dev-hacksdetailed-guide-on-android-clean-architecture-9eab262a9011)
- - MVVM - [Wikipedia article](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
+- Clean Architecture - [Medium article](https://medium.com/android-dev-hacksdetailed-guide-on-android-clean-architecture-9eab262a9011)
+- MVVM - [Wikipedia article](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
 
 <details>
 <summary>Draw.io diagram</summary>
