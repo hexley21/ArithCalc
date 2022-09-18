@@ -15,7 +15,6 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hxl.arithcalc.R
 import com.hxl.arithcalc.databinding.FragmentCalculatorBinding
@@ -116,7 +115,6 @@ class CalculatorFragment : Fragment(), View.OnClickListener {
                     true
                 }
                 R.id.licenses -> {
-                    startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
                     true
                 }
                 else -> false
