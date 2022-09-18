@@ -35,15 +35,50 @@
 
     <string name="menu_theme">Theme</string>
     <string name="menu_rate">Rate</string>
-    <string name="menu_licenses">Licenses</string>
-    <string name="menu_clear">Clear history</string>
+    <string name="menu_info">Info</string>
     <string name="select_theme">Select Theme</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+
     <string-array name="theme_choice">
         <item>Light</item>
         <item>Dark</item>
         <item>System</item>
+    </string-array>
+
+    <!-- Info -->
+    <string name="paragraph_project">About Project</string>
+    <string name="info_project">ArithCalc is an open-source software for mobile devices created by Hexley21 and maintained by ArithCalc\'s community</string>
+    <string name="paragraph_app">About ArithCalc</string>
+    <string name="info_description">ArithCalc is a mobile quiz game with randomly generated mathematical tasks of various difficulty.You can use it to train your arithmetical skills and improve your mental calculation time</string>
+    <string name="visit_github_page">Visit our GitHub page</string>
+    <string name="github_page">github.com/hexley21/ArithCalc</string>
+    <string name="contact_developer">Contact developer</string>
+    <string name="developer">a.kupreishvili.21@gmail.com</string>
+    <string name="privacy_policy">https://sites.google.com/view/hexley21-arithcalc/home</string>
+    <string name="info_privacy">PRIVACY POLICY</string>
+    <string name="info_credits">CREDITS</string>
+    <string name="info_rights">All Rights Reserved</string>
+
+    <string-array name="credits_title">
+        <item>Google - Dagger Hilt</item>
+        <item>Android - Room</item>
+        <item>Objecthunter - exp4j</item>
+        <item>Google Material icons - Icons</item>
+    </string-array>
+
+    <string-array name="credits_desc">
+        <item>A fast dependency injector for Android and Java. (APACHE 2.0)</item>
+        <item>The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.</item>
+        <item>A tiny math expression evaluator for the Java programming language. (APACHE 2.0)</item>
+        <item>Material Design Icons\' growing icon collection allows designers and developers targeting various platforms. (APACHE 2.0 / UBUNTU FONT LICENSE)</item>
+    </string-array>
+
+    <string-array name="credits_links">
+        <item>https://github.com/google/dagger</item>
+        <item>https://developer.android.com/jetpack/androidx/releases/room</item>
+        <item>https://github.com/fasseg/exp4j</item>
+        <item>https://fonts.google.com/icons</item>
     </string-array>
 
     <!-- Content Description -->
