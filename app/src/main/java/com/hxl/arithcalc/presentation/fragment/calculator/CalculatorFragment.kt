@@ -15,7 +15,6 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hxl.arithcalc.R
 import com.hxl.arithcalc.databinding.FragmentCalculatorBinding
@@ -23,6 +22,7 @@ import com.hxl.arithcalc.presentation.activity.MainActivity
 import com.hxl.arithcalc.presentation.fragment.calculator.keyboard.KeyboardCalculator
 import com.hxl.arithcalc.presentation.fragment.dialogs.theme.ThemeDialog
 import com.hxl.arithcalc.presentation.fragment.equation_history.EquationHistoryFragment
+import com.hxl.arithcalc.presentation.fragment.info.InfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.ceil
 
@@ -115,8 +115,8 @@ class CalculatorFragment : Fragment(), View.OnClickListener {
                     }
                     true
                 }
-                R.id.licenses -> {
-                    startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
+                R.id.info -> {
+                    (requireActivity() as MainActivity).replaceFragment(InfoFragment(), true)
                     true
                 }
                 else -> false
