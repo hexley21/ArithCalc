@@ -114,7 +114,8 @@ class CalculatorFragment : Fragment(), View.OnClickListener {
                     }
                     true
                 }
-                R.id.licenses -> {
+                R.id.info-> {
+
                     true
                 }
                 else -> false
