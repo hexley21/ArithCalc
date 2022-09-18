@@ -60,6 +60,27 @@
     <string name="info_credits">CREDITS</string>
     <string name="info_rights">All Rights Reserved</string>
 
+    <string-array name="credits_title">
+        <item>Google - Dagger Hilt</item>
+        <item>Android - Room</item>
+        <item>Objecthunter - exp4j</item>
+        <item>Google Material icons - Icons</item>
+    </string-array>
+
+    <string-array name="credits_desc">
+        <item>A fast dependency injector for Android and Java. (APACHE 2.0)</item>
+        <item>The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.</item>
+        <item>A tiny math expression evaluator for the Java programming language. (APACHE 2.0)</item>
+        <item>Material Design Icons\' growing icon collection allows designers and developers targeting various platforms. (APACHE 2.0 / UBUNTU FONT LICENSE)</item>
+    </string-array>
+
+    <string-array name="credits_links">
+        <item>https://github.com/google/dagger</item>
+        <item>https://developer.android.com/jetpack/androidx/releases/room</item>
+        <item>https://github.com/fasseg/exp4j</item>
+        <item>https://fonts.google.com/icons</item>
+    </string-array>
+
     <!-- Content Description -->
     <string name="desc_backspace">Backspace</string>
 </resources>

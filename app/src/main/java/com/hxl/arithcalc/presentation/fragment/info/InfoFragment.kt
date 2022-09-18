@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.hxl.arithcalc.R
 import com.hxl.arithcalc.databinding.FragmentInfoBinding
+import com.hxl.arithcalc.presentation.activity.MainActivity
+import com.hxl.arithcalc.presentation.fragment.info.credits.CreditFragment
 import java.util.*
 
 
@@ -34,7 +36,7 @@ class InfoFragment : Fragment() {
             openWeb("https://" + requireContext().getString(R.string.github_page))
         }
         binding.tvPrivacyPolicy.setOnClickListener { openWeb(requireContext().getString(R.string.privacy_policy)) }
-//        binding.tvCredits.setOnClickListener { (requireActivity() as MainActivity).replaceFragment(CreditFragment(), true) }
+        binding.tvCredits.setOnClickListener { (requireActivity() as MainActivity).replaceFragment(CreditFragment(), true) }
 
     }
 
