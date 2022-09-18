@@ -46,6 +46,20 @@
         <item>System</item>
     </string-array>
 
+    <!-- Info -->
+    <string name="paragraph_project">About Project</string>
+    <string name="info_project">ArithCalc is an open-source software for mobile devices created by Hexley21 and maintained by ArithCalc\'s community</string>
+    <string name="paragraph_app">About ArithCalc</string>
+    <string name="info_description">ArithCalc is a mobile quiz game with randomly generated mathematical tasks of various difficulty.You can use it to train your arithmetical skills and improve your mental calculation time</string>
+    <string name="visit_github_page">Visit our GitHub page</string>
+    <string name="github_page">github.com/hexley21/ArithCalc</string>
+    <string name="contact_developer">Contact developer</string>
+    <string name="developer">a.kupreishvili.21@gmail.com</string>
+    <string name="privacy_policy">https://sites.google.com/view/hexley21-arithcalc/home</string>
+    <string name="info_privacy">PRIVACY POLICY</string>
+    <string name="info_credits">CREDITS</string>
+    <string name="info_rights">All Rights Reserved</string>
+
     <!-- Content Description -->
     <string name="desc_backspace">Backspace</string>
 </resources>

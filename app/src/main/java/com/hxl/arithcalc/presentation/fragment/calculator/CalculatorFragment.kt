@@ -22,6 +22,7 @@ import com.hxl.arithcalc.presentation.activity.MainActivity
 import com.hxl.arithcalc.presentation.fragment.calculator.keyboard.KeyboardCalculator
 import com.hxl.arithcalc.presentation.fragment.dialogs.theme.ThemeDialog
 import com.hxl.arithcalc.presentation.fragment.equation_history.EquationHistoryFragment
+import com.hxl.arithcalc.presentation.fragment.info.InfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.ceil
 
@@ -114,8 +115,8 @@ class CalculatorFragment : Fragment(), View.OnClickListener {
                     }
                     true
                 }
-                R.id.info-> {
-
+                R.id.info -> {
+                    (requireActivity() as MainActivity).replaceFragment(InfoFragment(), true)
                     true
                 }
                 else -> false
